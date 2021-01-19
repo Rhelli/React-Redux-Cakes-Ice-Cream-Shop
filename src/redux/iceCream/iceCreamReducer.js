@@ -1,5 +1,4 @@
-import { BUY_ICECREAM } from './iceCreamTypes';
-import { REPLENISH_STOCK } from '../misc/miscTypes';
+import { BUY_ICECREAM, REPLENISH_ICECREAM } from './iceCreamTypes';
 
 const initialState = {
   numOfIceCreams: 15
@@ -7,11 +6,19 @@ const initialState = {
 
 const iceCreamReducer = (state = initialState, action) => {
   switch(action.type) {
-    case BUY_ICECREAM: return {
-      ...state,
-      numOfIceCreams: state.numOfIceCreams - 1
-    }
-    case REPLENISH_STOCK: return {
+    case BUY_ICECREAM:
+      if (state.numOfIceCreams > 0) {
+        return {
+          ...state,
+          numOfIceCreams: state.numOfIceCreams - 1
+        }
+      } else {
+        return {
+          ...state,
+          numOfIceCreams: 'Out Of Stock!'
+        }
+      }
+    case REPLENISH_ICECREAM: return {
       ...state,
       numOfIceCreams: initialState.numOfIceCreams
     }

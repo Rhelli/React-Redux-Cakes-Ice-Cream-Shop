@@ -1,5 +1,4 @@
-import { BUY_CAKE } from './cakeTypes';
-import { REPLENISH_STOCK } from '../misc/miscTypes';
+import { BUY_CAKE, REPLENISH_CAKE } from './cakeTypes';
 
 const initialState = {
   numOfCakes: 10
@@ -7,11 +6,19 @@ const initialState = {
 
 const cakeReducer = (state = initialState, action) => {
   switch(action.type) {
-    case BUY_CAKE: return {
-      ...state,
-      numOfCakes: state.numOfCakes - 1
+    case BUY_CAKE:
+    if (state.numOfCakes > 0) {
+      return {
+        ...state,
+        numOfCakes: state.numOfCakes - 1
+      }
+    } else {
+      return {
+        ...state,
+        numOfCakes: 'Out Of Stock!'
+      }
     }
-    case REPLENISH_STOCK: return {
+    case REPLENISH_CAKE: return {
       ...state,
       numOfCakes: initialState.numOfCakes
     }
